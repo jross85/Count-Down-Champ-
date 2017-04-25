@@ -26,30 +26,29 @@ class Clock extends Component {
 
   }
 
+  deadlineReached(seconds, minutes, hours, days) {
+    if (seconds === 0 && minutes === 0 && hours === 0 && days === 0) {
+      console.log('can you see me?');
+      return 'Deadline Reached!';
+    }
+  }
+
   leading0(num) {
     //return num < 10 ? '0' + num: num;
     if (num < 10) {
       if (num < 0) {
         return '00';
       } else {
-      console.log('less than 10');
       return '0' + num;
       }
     }
      else {
-      console.log('no change');
       return num;
     }
 
   }
 
-  deadlineReached(days, hours, minutes, seconds) {
 
-    if (days === '00' && hours === '00' && minutes === '00' && seconds === '00') {
-      alert('deadline reached');
-      }
-
-  }
 
   getTimeUntil(deadline) {
     const time = Date.parse(deadline) - Date.parse(new Date());
@@ -59,7 +58,8 @@ class Clock extends Component {
     const days = Math.floor(time/(1000*60*60*24));
 
     if (seconds < 0 && minutes < 0 && hours && days < 0) {
-      alert('deadline reached!');
+      //alert('Deadline Reached! Hooray!');
+      this.deadlineReached(seconds, minutes, hours, days);
     }
 
     this.setState({days,hours, minutes, seconds});
@@ -72,7 +72,7 @@ class Clock extends Component {
         <div className="Clock-hours">{this.leading0(this.state.hours)}hours</div>
         <div className="Clock-minutes">{this.leading0(this.state.minutes)}minutes</div>
         <div className="Clock-seconds">{this.leading0(this.state.seconds)}seconds</div>
-        <p className="zeroMessage">{this.deadlineReached(this.state.days, this.state.hours, this.state.minutes, this.state.seconds)}</p>
+        <p></p>
       </div>
     )
   }
